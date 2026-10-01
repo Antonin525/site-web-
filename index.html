@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VORA — Plombier à Voreppe (38340)</title>
+  <meta name="description" content="VORA, plomberie, chauffage et salles de bain à Voreppe et dans le Pays Voironnais. Dépannage 7j/7, devis écrit avant travaux.">
+  <meta name="theme-color" content="#100904">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Les styles "état initial" des animations ne s'appliquent que si le JS tourne.
+    document.documentElement.classList.add('js');
+    // Filet de sécurité : si le JS plante, on ré-affiche tout le contenu.
+    setTimeout(function () { if (!window.__voraReady) document.documentElement.classList.remove('js'); }, 5000);
+  </script>
+</head>
+<body>
+
+  <!-- ===== Loader ===== -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__top">
+      <span>VORA — PLOMBERIE</span>
+      <span>VOREPPE 38340</span>
+    </div>
+    <div class="loader__count"><span class="loader__num">000</span></div>
+    <div class="loader__bar"><span></span></div>
+  </div>
+
+  <!-- ===== Calques fixes ===== -->
+  <canvas class="webgl" aria-hidden="true"></canvas>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a href="#intro" class="nav__logo roll" data-magnetic>VORA</a>
+    <nav class="nav__links" aria-label="Navigation principale">
+      <a href="#intro" class="roll is-active" data-section="intro">INTRO</a>
+      <a href="#services" class="roll" data-section="services">SERVICES</a>
+      <a href="#methode" class="roll" data-section="methode">MÉTHODE</a>
+      <a href="#contact" class="roll" data-section="contact">CONTACT</a>
+    </nav>
+  </header>
+
+  <aside class="rail" aria-hidden="true">
+    <span class="rail__label">VORA · PLOMBERIE N°38340</span>
+    <span class="rail__track"><span class="rail__fill"></span></span>
+  </aside>
+
+  <main>
+
+    <!-- ===== 01 · HERO ===== -->
+    <section class="hero" id="intro" data-3d="intro">
+      <div class="hero__cross" aria-hidden="true">
+        <span class="hero__cross-h"></span>
+        <span class="hero__cross-v"></span>
+        <span class="hero__coords">45°17'N — 5°38'E</span>
+      </div>
+
+      <div class="hero__head">
+        <p class="hero__tag" data-hero-fade>PLOMBERIE · CHAUFFAGE · SALLES DE BAIN — VOREPPE (38)</p>
+        <h1 class="hero__mark" aria-label="VORA">
+          <span class="hero__chars" data-chars>VORA</span>
+        </h1>
+      </div>
+
+      <div class="hero__card" data-hero-fade>
+        <p class="hero__card-title">PLOMBIER À VOREPPE, POUR TOUT LE PAYS VOIRONNAIS.</p>
+        <span class="dash"></span>
+        <p class="hero__card-text">UN ARTISAN. UN NUMÉRO. UNE INTERVENTION PROPRE, DEVIS ÉCRIT AVANT LE PREMIER COUP DE CLÉ.</p>
+      </div>
+
+      <a class="hero__urgent" href="tel:+33400000000" data-hero-fade data-cursor="APPELER">
+        <span class="hero__urgent-top"><span class="pulse"></span>URGENCE 7J/7</span>
+        <span class="hero__urgent-num">04 00 00 00 00</span>
+        <span class="hero__urgent-cta">FUITE · DÉGÂT DES EAUX · WC BOUCHÉ ↗</span>
+      </a>
+
+      <div class="hero__scroll" data-hero-fade>
+        <span>DÉFILER</span>
+        <span class="hero__scroll-line"></span>
+      </div>
+    </section>
+
+    <!-- ===== 02 · MANIFESTE (mode vide) ===== -->
+    <section class="reveal" id="atelier" data-3d="atelier">
+      <div class="reveal__left">
+        <p class="label">( 01 ) — L'ATELIER</p>
+        <h2 class="h-heading" data-split>CE N'EST PAS<br>QU'UN SIMPLE<br>TUYAU.</h2>
+      </div>
+      <div class="reveal__center" aria-hidden="true"></div>
+      <div class="reveal__right">
+        <p class="body-copy" data-scrub>Chaque raccord, chaque soudure, chaque joint est pensé pour durer trente ans. Nous travaillons chez vous comme dans un atelier : propre, précis, et sans surprise sur la facture.</p>
+        <span class="dash"></span>
+        <a href="#services" class="btn-ghost" data-magnetic data-cursor="VOIR"><span class="roll">NOS SERVICES</span></a>
+      </div>
+    </section>
+
+    <!-- ===== 03 · ANATOMIE (épinglée, la pièce s'éclate) ===== -->
+    <section class="anatomy" id="anatomie" data-3d="anatomie">
+      <div class="anatomy__head">
+        <p class="label">( 02 ) — ANATOMIE D'UN RACCORD</p>
+        <h2 class="h-heading" data-split>DÉMONTÉ,<br>PIÈCE PAR PIÈCE.</h2>
+      </div>
+
+      <ul class="anatomy__list anatomy__list--left">
+        <li data-part="0.10"><span class="n">01</span><span class="t">TUBE CUIVRE Ø14</span><span class="dash"></span><span class="d">ÉCROUI, 1 MM D'ÉPAISSEUR</span></li>
+        <li data-part="0.25"><span class="n">02</span><span class="t">COUDE 90°</span><span class="dash"></span><span class="d">BRASÉ À L'ARGENT</span></li>
+        <li data-part="0.40"><span class="n">03</span><span class="t">MANCHON</span><span class="dash"></span><span class="d">EMBOÎTEMENT MÂLE-FEMELLE</span></li>
+      </ul>
+      <ul class="anatomy__list anatomy__list--right">
+        <li data-part="0.55"><span class="n">04</span><span class="t">VANNE ¼ DE TOUR</span><span class="dash"></span><span class="d">LAITON MATRICÉ, PN25</span></li>
+        <li data-part="0.70"><span class="n">05</span><span class="t">ÉCROUS 6 PANS</span><span class="dash"></span><span class="d">SERRAGE AU COUPLE</span></li>
+        <li data-part="0.85"><span class="n">06</span><span class="t">MANETTE</span><span class="dash"></span><span class="d">COUPURE D'EAU INSTANTANÉE</span></li>
+      </ul>
+
+      <div class="anatomy__meter">
+        <span>DÉMONTAGE</span>
+        <span class="anatomy__pct">000%</span>
+      </div>
+    </section>
+
+    <!-- ===== 04 · SERVICES ===== -->
+    <section class="services" id="services" data-3d="services">
+      <div class="services__head">
+        <p class="label">( 03 ) — SERVICES</p>
+        <h2 class="h-heading" data-split>CE QUE NOUS<br>RÉPARONS,<br>INSTALLONS.</h2>
+        <p class="body-copy services__intro" data-scrub>Du robinet qui goutte à la salle de bain complète, une seule équipe s'occupe de tout, du diagnostic à la mise en eau.</p>
+      </div>
+
+      <ul class="svc">
+        <li class="svc__row" data-icon="drop">
+          <a href="#contact">
+            <span class="svc__n">01</span>
+            <span class="svc__t">DÉPANNAGE &amp; URGENCES</span>
+            <span class="svc__d">FUITES, DÉGÂTS DES EAUX, COUPURES</span>
+            <span class="svc__a">↗</span>
+          </a>
+        </li>
+        <li class="svc__row" data-icon="tank">
+          <a href="#contact">
+            <span class="svc__n">02</span>
+            <span class="svc__t">CHAUFFE-EAU</span>
+            <span class="svc__d">REMPLACEMENT, DÉTARTRAGE, THERMODYNAMIQUE</span>
+            <span class="svc__a">↗</span>
+          </a>
+        </li>
+        <li class="svc__row" data-icon="tub">
+          <a href="#contact">
+            <span class="svc__n">03</span>
+            <span class="svc__t">SALLES DE BAIN</span>
+            <span class="svc__d">CRÉATION CLÉ EN MAIN, DOUCHE À L'ITALIENNE</span>
+            <span class="svc__a">↗</span>
+          </a>
+        </li>
+        <li class="svc__row" data-icon="flame">
+          <a href="#contact">
+            <span class="svc__n">04</span>
+            <span class="svc__t">CHAUFFAGE</span>
+            <span class="svc__d">CHAUDIÈRE, RADIATEURS, DÉSEMBOUAGE</span>
+            <span class="svc__a">↗</span>
+          </a>
+        </li>
+        <li class="svc__row" data-icon="search">
+          <a href="#contact">
+            <span class="svc__n">05</span>
+            <span class="svc__t">RECHERCHE DE FUITE</span>
+            <span class="svc__d">LOCALISATION SANS CASSE INUTILE</span>
+            <span class="svc__a">↗</span>
+          </a>
+        </li>
+        <li class="svc__row" data-icon="wave">
+          <a href="#contact">
+            <span class="svc__n">06</span>
+            <span class="svc__t">DÉBOUCHAGE</span>
+            <span class="svc__d">ÉVIERS, WC, CANALISATIONS</span>
+            <span class="svc__a">↗</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Aperçu flottant qui suit le curseur au survol des services -->
+      <div class="svc-preview" aria-hidden="true">
+        <div class="svc-preview__inner">
+          <svg data-icon="drop" viewBox="0 0 120 120"><path d="M60 14 C60 14 30 52 30 74 a30 30 0 0 0 60 0 C90 52 60 14 60 14Z"/><path d="M46 78 a14 14 0 0 0 14 14"/></svg>
+          <svg data-icon="tank" viewBox="0 0 120 120"><rect x="34" y="12" width="52" height="88" rx="26"/><path d="M48 100 v10 M72 100 v10 M34 50 h52"/><circle cx="60" cy="74" r="8"/></svg>
+          <svg data-icon="tub" viewBox="0 0 120 120"><path d="M14 62 h92 v10 a26 26 0 0 1 -26 26 h-40 a26 26 0 0 1 -26 -26z"/><path d="M28 62 V28 a12 12 0 0 1 24 0 v4"/><path d="M36 98 l-6 12 M84 98 l6 12"/></svg>
+          <svg data-icon="flame" viewBox="0 0 120 120"><path d="M60 108 c-22 0 -36 -16 -36 -36 c0 -22 18 -30 22 -54 c10 10 14 22 12 32 c6 -4 10 -10 10 -18 c14 12 28 26 28 42 c0 20 -14 34 -36 34z"/><path d="M60 108 c-10 0 -16 -8 -16 -16 c0 -10 10 -14 12 -24 c10 8 20 16 20 26 c0 8 -6 14 -16 14z"/></svg>
+          <svg data-icon="search" viewBox="0 0 120 120"><circle cx="52" cy="52" r="32"/><path d="M75 75 l30 30"/><path d="M52 36 c0 0 -12 14 -12 22 a12 12 0 0 0 24 0 c0 -8 -12 -22 -12 -22z"/></svg>
+          <svg data-icon="wave" viewBox="0 0 120 120"><path d="M10 40 q12.5 -14 25 0 t25 0 t25 0 t25 0"/><path d="M10 62 q12.5 -14 25 0 t25 0 t25 0 t25 0"/><path d="M10 84 q12.5 -14 25 0 t25 0 t25 0 t25 0"/></svg>
+          <span class="svc-preview__label">DEMANDER UN DEVIS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 05 · MÉTHODE (défilement horizontal) ===== -->
+    <section class="method" id="methode" data-3d="methode">
+      <div class="method__track">
+        <div class="method__intro">
+          <p class="label">( 04 ) — MÉTHODE</p>
+          <h2 class="h-heading" data-split>QUATRE<br>TEMPS,<br>ZÉRO<br>SURPRISE.</h2>
+          <div class="method__progress"><span></span></div>
+        </div>
+        <article class="step" data-cursor="↔">
+          <span class="step__n">01</span>
+          <span class="dash"></span>
+          <h3 class="step__t">VOUS APPELEZ</h3>
+          <p class="step__d">UN INTERLOCUTEUR UNIQUE DÉCROCHE. ON QUALIFIE LE PROBLÈME EN DEUX MINUTES, PHOTOS À L'APPUI SI BESOIN.</p>
+        </article>
+        <article class="step" data-cursor="↔">
+          <span class="step__n">02</span>
+          <span class="dash"></span>
+          <h3 class="step__t">DIAGNOSTIC</h3>
+          <p class="step__d">SUR PLACE, ON CHERCHE LA CAUSE, PAS SEULEMENT LE SYMPTÔME. VOUS SAVEZ CE QUI SE PASSE AVANT QU'ON TOUCHE À QUOI QUE CE SOIT.</p>
+        </article>
+        <article class="step" data-cursor="↔">
+          <span class="step__n">03</span>
+          <span class="dash"></span>
+          <h3 class="step__t">DEVIS ÉCRIT</h3>
+          <p class="step__d">PRIX FERME, DÉTAILLÉ LIGNE PAR LIGNE. RIEN NE COMMENCE SANS VOTRE ACCORD SIGNÉ.</p>
+        </article>
+        <article class="step" data-cursor="↔">
+          <span class="step__n">04</span>
+          <span class="dash"></span>
+          <h3 class="step__t">INTERVENTION</h3>
+          <p class="step__d">BÂCHES AU SOL, CHANTIER NETTOYÉ, ESSAIS DE PRESSION. ON REPART QUAND TOUT EST SEC — ET VOUS AUSSI.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== 06 · CHIFFRES ===== -->
+    <section class="figures" id="chiffres" data-3d="chiffres">
+      <div class="figures__row">
+        <div class="fig">
+          <span class="fig__num" data-count="7">0</span>
+          <span class="dash"></span>
+          <span class="fig__label">JOURS SUR 7 POUR LES URGENCES</span>
+        </div>
+        <div class="fig">
+          <span class="fig__num" data-count="15" data-suffix=" KM">0</span>
+          <span class="dash"></span>
+          <span class="fig__label">DE RAYON AUTOUR DE VOREPPE</span>
+        </div>
+        <div class="fig">
+          <span class="fig__num" data-count="100" data-suffix="%">0</span>
+          <span class="dash"></span>
+          <span class="fig__label">DES CHANTIERS AVEC DEVIS ÉCRIT</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 07 · ZONE ===== -->
+    <section class="zone" id="zone" data-3d="zone">
+      <div class="zone__grid">
+        <div class="zone__text">
+          <p class="label">( 05 ) — ZONE D'INTERVENTION</p>
+          <h2 class="h-heading" data-split>VOREPPE<br>ET ALENTOURS.</h2>
+          <p class="body-copy" data-scrub>Basés à Voreppe, nous intervenons dans tout le Pays Voironnais et au nord de l'agglomération grenobloise.</p>
+        </div>
+
+        <div class="radar" data-fade>
+          <svg viewBox="0 0 400 400" class="radar__svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#ffedd7" stop-opacity="0"/>
+                <stop offset="1" stop-color="#ffedd7" stop-opacity=".18"/>
+              </linearGradient>
+            </defs>
+            <circle cx="200" cy="200" r="60"  class="ring"/>
+            <circle cx="200" cy="200" r="120" class="ring"/>
+            <circle cx="200" cy="200" r="180" class="ring"/>
+            <line x1="20" y1="200" x2="380" y2="200" class="ring"/>
+            <line x1="200" y1="20" x2="200" y2="380" class="ring"/>
+            <g class="radar__sweep"><path d="M200 200 L380 200 A180 180 0 0 0 327 73 Z" fill="url(#sweep)"/></g>
+            <text x="262" y="196" class="radar__km">5 KM</text>
+            <text x="322" y="196" class="radar__km">10 KM</text>
+            <text x="382" y="196" class="radar__km" text-anchor="end">15 KM</text>
+          </svg>
+          <!-- Positions approximatives des communes (1 km ≈ 12 unités, nord en haut) -->
+          <span class="radar__pin radar__pin--home" style="--x:50%;--y:50%"><i></i><b>VOREPPE</b></span>
+          <span class="radar__pin" style="--x:59%;--y:59%"><i></i><b>LE FONTANIL</b></span>
+          <span class="radar__pin" style="--x:65%;--y:66%"><i></i><b>SAINT-ÉGRÈVE</b></span>
+          <span class="radar__pin" style="--x:77%;--y:79%"><i></i><b>GRENOBLE</b></span>
+          <span class="radar__pin" style="--x:31%;--y:45%"><i></i><b>MOIRANS</b></span>
+          <span class="radar__pin" style="--x:44%;--y:36%"><i></i><b>LA BUISSE</b></span>
+          <span class="radar__pin" style="--x:60%;--y:39%"><i></i><b>POMMIERS-LA-PLACETTE</b></span>
+          <span class="radar__pin" style="--x:30%;--y:33%"><i></i><b>SAINT-JEAN-DE-MOIRANS</b></span>
+          <span class="radar__pin" style="--x:34%;--y:22%"><i></i><b>VOIRON</b></span>
+          <span class="radar__pin" style="--x:50%;--y:66%"><i></i><b>VEUREY-VOROIZE</b></span>
+          <span class="radar__pin" style="--x:36%;--y:62%"><i></i><b>SAINT-QUENTIN-SUR-ISÈRE</b></span>
+        </div>
+      </div>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__row" data-dir="1">
+          <span>VOREPPE ✳ SAINT-ÉGRÈVE ✳ MOIRANS ✳ LA BUISSE ✳ LE FONTANIL ✳ VOIRON ✳ </span>
+        </div>
+        <div class="marquee__row marquee__row--outline" data-dir="-1">
+          <span>POMMIERS-LA-PLACETTE ✳ VEUREY-VOROIZE ✳ SAINT-JEAN-DE-MOIRANS ✳ GRENOBLE ✳ </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 08 · CONTACT ===== -->
+    <section class="contact" id="contact" data-3d="contact">
+      <div class="contact__left">
+        <p class="label">( 06 ) — CONTACT</p>
+        <h2 class="h-display" data-split>UNE FUITE ?<br>ON ARRIVE.</h2>
+        <a href="tel:+33400000000" class="btn-pill" data-magnetic data-cursor="APPELER">
+          <span class="roll">APPELER LE 04 00 00 00 00</span>
+        </a>
+        <dl class="contact__info">
+          <div><dt>ATELIER</dt><dd>VOREPPE (38340), ISÈRE</dd></div>
+          <div><dt>HORAIRES</dt><dd>LUN–SAM · 7H30–19H<br>URGENCES 7J/7</dd></div>
+          <div><dt>EMAIL</dt><dd><a href="mailto:contact@vora-plomberie.fr" class="link">CONTACT@VORA-PLOMBERIE.FR</a></dd></div>
+        </dl>
+      </div>
+
+      <form class="form" data-fade novalidate>
+        <p class="form__title">DEMANDE DE DEVIS</p>
+        <label class="field">
+          <span>NOM</span>
+          <input type="text" name="nom" autocomplete="name" required>
+        </label>
+        <label class="field">
+          <span>TÉLÉPHONE</span>
+          <input type="tel" name="tel" autocomplete="tel" required>
+        </label>
+        <label class="field">
+          <span>COMMUNE</span>
+          <input type="text" name="commune" value="" placeholder="VOREPPE" autocomplete="address-level2">
+        </label>
+        <label class="field">
+          <span>VOTRE BESOIN</span>
+          <textarea name="message" rows="3" required></textarea>
+        </label>
+        <button type="submit" class="btn-ghost" data-magnetic data-cursor="ENVOYER"><span class="roll">ENVOYER LA DEMANDE</span></button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- ===== Pied de page ===== -->
+  <footer class="footer">
+    <div class="footer__row">
+      <span>© <span class="year">2026</span> VORA PLOMBERIE — VOREPPE</span>
+      <a href="#intro" class="btn-ghost btn-ghost--sm" data-magnetic><span class="roll">HAUT DE PAGE ↑</span></a>
+      <span class="credit">CONÇU &amp; CODÉ EN ISÈRE</span>
+    </div>
+    <span class="dash"></span>
+    <p class="footer__mark" data-chars-footer aria-hidden="true">VORA</p>
+    <p class="legal">* MENTIONS LÉGALES · SIRET 000 000 000 00000 · ASSURANCE DÉCENNALE N° 0000000 · PRIX TTC</p>
+  </footer>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/ScrollTrigger.min.js"></script>
+  <script src="vendor/lenis.min.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
