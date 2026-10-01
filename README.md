@@ -1,5 +1,7 @@
 # VORA — Site vitrine plomberie, Voreppe (38340)
 
+> Ce dépôt contient aussi un second site, pour une entreprise de charpente : voir [`charpente/`](charpente/README.md).
+
 Site statique (HTML / CSS / JS, sans build) au style « chambre noire » éditorial :
 toile noyer `#100904`, typographie crème `#ffedd7`, une seule couleur braise `#dc5000`
 réservée aux crédits, et une pièce de plomberie en 3D (coude cuivre + vanne ¼ de tour)

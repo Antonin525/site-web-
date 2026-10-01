@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Faîte — Charpente, ossature bois &amp; lamellé-collé</title>
+  <meta name="description" content="Atelier de charpente : charpente traditionnelle, ossature bois, lamellé-collé et rénovation. Conception 3D, taille en atelier, levage et mise hors d'eau.">
+  <meta name="theme-color" content="#010101">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Faîte — L'art de tenir le ciel">
+  <meta property="og:description" content="Charpente traditionnelle, ossature bois et lamellé-collé. De la maquette 3D au levage.">
+  <meta property="og:image" content="img/og-image.jpg">
+  <link rel="preload" href="fonts/cormorant-garamond-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/ibm-plex-mono-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="modulepreload" href="vendor/three.module.min.js">
+  <script>
+    // Les états initiaux des animations ne s'appliquent que si le JS tourne.
+    document.documentElement.classList.add('js');
+    setTimeout(function () { if (!window.__faiteBoot) document.documentElement.classList.remove('js'); }, 4000);
+  </script>
+</head>
+<body>
+
+  <!-- Chargement -->
+  <div class="loader" aria-hidden="true">
+    <p class="loader__mark">Faîte</p>
+    <div class="loader__foot">
+      <p class="mono">Chargement de la maquette 3D</p>
+      <p class="mono"><span data-load>000</span> %</p>
+    </div>
+    <span class="loader__bar"><i></i></span>
+  </div>
+
+  <!-- Curseur « instrument » -->
+  <div class="cursor" aria-hidden="true">
+    <span class="cursor__cross"></span>
+    <span class="cursor__label mono"></span>
+    <span class="cursor__coords mono"></span>
+  </div>
+
+  <header class="header">
+    <a class="brand" href="#top" aria-label="Faîte — retour en haut">
+      <span class="brand__mark">Faîte</span>
+      <span class="brand__meta mono">Atelier de charpente<br>Isère — 38</span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a class="pill" href="#savoir-faire" data-magnetic><span class="roll">Savoir-faire</span><span class="pill__n">(01)</span></a>
+      <a class="pill" href="#anatomie" data-magnetic><span class="roll">Anatomie</span><span class="pill__n">(02)</span></a>
+      <a class="pill" href="#methode" data-magnetic><span class="roll">Méthode</span><span class="pill__n">(03)</span></a>
+      <a class="pill" href="#ouvrages" data-magnetic><span class="roll">Ouvrages</span><span class="pill__n">(04)</span></a>
+      <a class="pill" href="#contact" data-magnetic><span class="roll">Contact</span><span class="pill__n">(05)</span></a>
+    </nav>
+    <p class="clock mono" aria-hidden="true">Heure locale <time data-clock>00:00:00</time></p>
+    <button class="pill menu-toggle" type="button" aria-expanded="false" aria-controls="menu"><span class="roll" data-menu-label>Menu</span><span class="pill__n">(05)</span></button>
+  </header>
+
+  <div class="menu" id="menu" hidden>
+    <nav class="menu__nav" aria-label="Menu">
+      <a href="#savoir-faire"><span class="mono">(01)</span>Savoir-faire</a>
+      <a href="#anatomie"><span class="mono">(02)</span>Anatomie</a>
+      <a href="#methode"><span class="mono">(03)</span>Méthode</a>
+      <a href="#ouvrages"><span class="mono">(04)</span>Ouvrages</a>
+      <a href="#contact"><span class="mono">(05)</span>Contact</a>
+    </nav>
+    <p class="menu__foot mono"><a href="tel:+33400000000">04 00 00 00 00</a><a href="mailto:contact@faite-charpente.fr">contact@faite-charpente.fr</a></p>
+  </div>
+
+  <main id="top">
+
+    <!-- ========== Bandeau 3D ========== -->
+    <section class="band" aria-label="Maquette 3D d'une maison à ossature bois">
+      <div class="band__frame">
+        <div class="band__view" data-view="hero" data-cursor="Pivoter">
+          <img class="poster" src="img/hero.webp" width="2400" height="1100" fetchpriority="high"
+               alt="Rendu 3D d'une maison à ossature bois en cours de levage, avec une pile de bois et un laser de chantier">
+        </div>
+        <div class="hud" aria-hidden="true">
+          <span class="hud__tl mono">Fig. 01 — Ossature bois · épicéa C24</span>
+          <span class="hud__tr mono">Rendu temps réel · <b data-fps>60</b> ips</span>
+          <span class="hud__bl mono">Laser rotatif · niveau +1,23 m</span>
+          <span class="hud__br mono" data-drag-hint>Glisser pour pivoter ↻</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Énoncé ========== -->
+    <section class="statement">
+      <p class="mono kicker" data-fade>Conception · Taille · Levage</p>
+      <h1 class="display" data-lines>L'art de tenir<br>le ciel.</h1>
+      <p class="lead" data-fade>Charpente traditionnelle, ossature bois et lamellé-collé. Nous dessinons chaque pièce en 3D, nous la taillons à l'atelier et nous la levons sur votre chantier — une seule équipe, du premier relevé à la dernière cheville.</p>
+      <a class="text-link" href="#methode" data-fade><span class="roll">Découvrir la méthode</span><span aria-hidden="true">↓</span></a>
+    </section>
+
+    <!-- ========== 01 · Savoir-faire ========== -->
+    <section class="section" id="savoir-faire">
+      <h2 class="monument" data-monument>Savoir-faire</h2>
+      <div class="col">
+        <div class="row-head" data-fade>
+          <p class="row-head__title">Une structure bois se pense comme un ouvrage d'art.</p>
+          <p class="mono row-head__meta">(01) — 4 métiers</p>
+        </div>
+        <hr class="rule" data-rule>
+        <div class="features">
+          <article class="feature" data-fade>
+            <p class="mono feature__n">01 / 04</p>
+            <h3 class="feature__title">Charpente traditionnelle</h3>
+            <p class="feature__text">Fermes, pannes et chevrons assemblés à tenons et mortaises, chevillés bois. Le geste des compagnons, la précision du numérique.</p>
+          </article>
+          <article class="feature" data-fade>
+            <p class="mono feature__n">02 / 04</p>
+            <h3 class="feature__title">Ossature bois</h3>
+            <p class="feature__text">Murs à montants de 145 mm, isolation entre montants, pare-pluie et bardage. Une maison sèche, légère et performante, levée en quelques jours.</p>
+          </article>
+          <article class="feature" data-fade>
+            <p class="mono feature__n">03 / 04</p>
+            <h3 class="feature__title">Lamellé-collé</h3>
+            <p class="feature__text">Grandes portées, poutres courbes, halles et préaux : le bois reconstitué ouvre des volumes qu'aucune poutre massive ne permet.</p>
+          </article>
+          <article class="feature" data-fade>
+            <p class="mono feature__n">04 / 04</p>
+            <h3 class="feature__title">Rénovation &amp; renfort</h3>
+            <p class="feature__text">Diagnostic, traitement, moisage et remplacement des pièces fatiguées. Nous conservons ce qui peut l'être, nous renforçons le reste.</p>
+          </article>
+        </div>
+        <div class="cards">
+          <div class="card" data-fade>
+            <p class="card__value"><span data-count="10">10</span><small>ans</small></p>
+            <p class="mono card__label">Garantie décennale</p>
+          </div>
+          <div class="card" data-fade>
+            <p class="card__value">3D</p>
+            <p class="mono card__label">Maquette validée avant taille</p>
+          </div>
+          <div class="card" data-fade>
+            <p class="card__value">C24<small>· GL24h</small></p>
+            <p class="mono card__label">Bois classés structure</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 02 · Anatomie ========== -->
+    <section class="section" id="anatomie">
+      <h2 class="monument" data-monument>Anatomie</h2>
+      <div class="col">
+        <div class="row-head" data-fade>
+          <p class="row-head__title">Trois manières de porter un toit.</p>
+          <p class="mono row-head__meta">(02) — Vue interactive</p>
+        </div>
+        <hr class="rule" data-rule>
+        <p class="body" data-fade>Survolez une pièce pour l'isoler, faites pivoter la ferme d'un glisser, passez en vue éclatée. Chaque assemblage est calculé avant d'être taillé.</p>
+      </div>
+
+      <div class="floatnav" role="tablist" aria-label="Type de ferme" data-fade>
+        <button class="pill is-active" type="button" role="tab" aria-selected="true" data-truss="poincon"><span class="roll">Ferme à poinçon</span><span class="pill__n">(01)</span></button>
+        <button class="pill" type="button" role="tab" aria-selected="false" data-truss="fermette"><span class="roll">Fermette</span><span class="pill__n">(02)</span></button>
+        <button class="pill" type="button" role="tab" aria-selected="false" data-truss="retrousse"><span class="roll">Entrait retroussé</span><span class="pill__n">(03)</span></button>
+      </div>
+
+      <div class="frame frame--wide" data-fade>
+        <div class="well well--anatomy" data-view="anatomy" data-cursor="Pivoter">
+          <img class="poster" src="img/anatomie.webp" width="1800" height="1100" loading="lazy"
+               alt="Ferme à poinçon en 3D : entrait, arbalétriers, poinçon, contrefiches, pannes et chevrons">
+          <div class="callouts" data-callouts></div>
+          <div class="hud" aria-hidden="true">
+            <span class="hud__tl mono" data-truss-fig>Fig. 02 — Ferme à poinçon</span>
+            <span class="hud__tr mono">Échelle 1:50</span>
+            <span class="hud__br mono">Glisser pour pivoter ↻</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col anatomy-foot">
+        <ol class="legend" data-legend></ol>
+        <div class="spec">
+          <p class="mono spec__row" data-truss-spec>Portée 8,00 m · Pente 40° · Entrait 18 × 24 cm · Chêne · Douglas</p>
+          <button class="text-link" type="button" data-explode aria-pressed="false"><span class="roll">Vue éclatée</span><span aria-hidden="true">↗</span></button>
+        </div>
+        <hr class="rule" data-rule>
+        <p class="body" data-truss-text>La ferme traditionnelle par excellence. Assemblée à tenons, mortaises et chevilles, elle franchit de grandes portées sans appui intermédiaire et reste apparente sous les combles.</p>
+      </div>
+    </section>
+
+    <!-- ========== 03 · Méthode ========== -->
+    <section class="process" id="methode">
+      <h2 class="monument" data-monument>Méthode</h2>
+      <div class="process__track" data-process>
+        <div class="process__sticky">
+          <div class="process__grid">
+            <ol class="steps">
+              <li class="step is-active">
+                <div class="step__head"><h3 class="step__title">Relevé 3D</h3><span class="mono step__n">01 — 05</span></div>
+                <hr class="rule">
+                <div class="step__body"><div>
+                  <p>Nous scannons l'existant au laser : murs, aplombs, niveaux. Le nuage de points devient la base de toute l'étude.</p>
+                  <p class="mono step__meta">Scanner laser · nuage de points</p>
+                </div></div>
+              </li>
+              <li class="step">
+                <div class="step__head"><h3 class="step__title">Conception</h3><span class="mono step__n">02 — 05</span></div>
+                <hr class="rule">
+                <div class="step__body"><div>
+                  <p>Chaque pièce est dessinée, chaque assemblage vérifié. Vous visitez votre charpente en 3D avant le premier trait de scie.</p>
+                  <p class="mono step__meta">Maquette numérique · note de calcul</p>
+                </div></div>
+              </li>
+              <li class="step">
+                <div class="step__head"><h3 class="step__title">Taille</h3><span class="mono step__n">03 — 05</span></div>
+                <hr class="rule">
+                <div class="step__body"><div>
+                  <p>Les bois sont taillés sur machine à commande numérique puis ajustés à la main. Tout est numéroté, rien n'est improvisé sur le chantier.</p>
+                  <p class="mono step__meta">Commande numérique · finitions main</p>
+                </div></div>
+              </li>
+              <li class="step">
+                <div class="step__head"><h3 class="step__title">Levage</h3><span class="mono step__n">04 — 05</span></div>
+                <hr class="rule">
+                <div class="step__body"><div>
+                  <p>Sablières, fermes, pannes, chevrons : la structure monte dans l'ordre, à la grue, en quelques jours.</p>
+                  <p class="mono step__meta">Grue · équipe dédiée</p>
+                </div></div>
+              </li>
+              <li class="step">
+                <div class="step__head"><h3 class="step__title">Hors d'eau</h3><span class="mono step__n">05 — 05</span></div>
+                <hr class="rule">
+                <div class="step__body"><div>
+                  <p>Liteaux, écran sous-toiture et couverture : la maison est hors d'eau. Nous restons jusqu'à la réception.</p>
+                  <p class="mono step__meta">Couverture · réception</p>
+                </div></div>
+              </li>
+            </ol>
+            <div class="frame frame--process">
+              <div class="well well--process" data-view="process">
+                <img class="poster" src="img/methode.webp" width="1600" height="1200" loading="lazy"
+                     alt="Maison maçonnée avec sa charpente traditionnelle levée et une partie de la couverture en zinc">
+                <div class="hud" aria-hidden="true">
+                  <span class="hud__tl mono" data-step-label>Étape 01 / 05 — Relevé 3D</span>
+                  <span class="hud__tr mono"><b data-step-pct>000</b> %</span>
+                  <span class="hud__bar"><i data-step-bar></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 04 · Ouvrages ========== -->
+    <section class="section works" id="ouvrages">
+      <h2 class="monument" data-monument>Ouvrages</h2>
+      <div class="col">
+        <div class="row-head" data-fade>
+          <p class="row-head__title">Ce que nous construisons.</p>
+          <p class="mono row-head__meta">(04) — 6 typologies</p>
+        </div>
+        <hr class="rule" data-rule>
+      </div>
+      <div class="works__grid">
+        <ol class="works__list">
+          <li class="work is-active">
+            <button class="work__btn" type="button" data-work="0">
+              <span class="mono work__n">01</span>
+              <span class="work__title">Charpente traditionnelle</span>
+              <span class="work__text">Fermes à poinçon, pannes et chevrons sur maison maçonnée.</span>
+              <span class="mono work__meta">Chêne · Douglas</span>
+            </button>
+            <figure class="work__media"><img src="img/traditionnelle.webp" width="1600" height="1200" loading="lazy" alt="Rendu 3D d'une charpente traditionnelle à fermes à poinçon sur une maison maçonnée, couverture zinc partielle"></figure>
+          </li>
+          <li class="work">
+            <button class="work__btn" type="button" data-work="1">
+              <span class="mono work__n">02</span>
+              <span class="work__title">Maison ossature bois</span>
+              <span class="work__text">Murs à ossature, charpente et baies posés en une seule intervention.</span>
+              <span class="mono work__meta">Épicéa C24</span>
+            </button>
+            <figure class="work__media"><img src="img/ossature.webp" width="1600" height="1200" loading="lazy" alt="Rendu 3D d'une maison à ossature bois avec ses murs à montants et sa charpente"></figure>
+          </li>
+          <li class="work">
+            <button class="work__btn" type="button" data-work="2">
+              <span class="mono work__n">03</span>
+              <span class="work__title">Halle en lamellé-collé</span>
+              <span class="work__text">Arcs de plus de 10 m de portée pour halles, manèges et préaux.</span>
+              <span class="mono work__meta">GL24h</span>
+            </button>
+            <figure class="work__media"><img src="img/lamelle.webp" width="1600" height="1200" loading="lazy" alt="Rendu 3D d'une halle à arcs en lamellé-collé reliés par des pannes"></figure>
+          </li>
+          <li class="work">
+            <button class="work__btn" type="button" data-work="3">
+              <span class="mono work__n">04</span>
+              <span class="work__title">Surélévation</span>
+              <span class="work__text">Un étage bois léger, posé sur une maison existante sans la surcharger.</span>
+              <span class="mono work__meta">Ossature · bardage mélèze</span>
+            </button>
+            <figure class="work__media"><img src="img/surelevation.webp" width="1600" height="1200" loading="lazy" alt="Rendu 3D d'une surélévation à ossature bois sur une maison maçonnée"></figure>
+          </li>
+          <li class="work">
+            <button class="work__btn" type="button" data-work="4">
+              <span class="mono work__n">05</span>
+              <span class="work__title">Pergola &amp; carport</span>
+              <span class="work__text">Structures extérieures en douglas, chevrons apparents et brise-soleil.</span>
+              <span class="mono work__meta">Douglas · inox</span>
+            </button>
+            <figure class="work__media"><img src="img/pergola.webp" width="1600" height="1200" loading="lazy" alt="Rendu 3D d'une pergola en douglas à lames brise-soleil"></figure>
+          </li>
+          <li class="work">
+            <button class="work__btn" type="button" data-work="5">
+              <span class="mono work__n">06</span>
+              <span class="work__title">Rénovation de charpente</span>
+              <span class="work__text">Fermes anciennes conservées, pièces neuves moisées, chevronnage remplacé.</span>
+              <span class="mono work__meta">Chêne ancien · épicéa</span>
+            </button>
+            <figure class="work__media"><img src="img/renovation.webp" width="1600" height="1200" loading="lazy" alt="Rendu 3D d'une charpente ancienne en chêne renforcée par des pièces neuves claires"></figure>
+          </li>
+        </ol>
+        <div class="works__viewer" aria-hidden="true">
+          <div class="viewer" data-cursor="Voir">
+            <img class="viewer__img is-active" src="img/traditionnelle.webp" alt="" width="1600" height="1200" loading="lazy">
+            <img class="viewer__img" src="img/ossature.webp" alt="" width="1600" height="1200" loading="lazy">
+            <img class="viewer__img" src="img/lamelle.webp" alt="" width="1600" height="1200" loading="lazy">
+            <img class="viewer__img" src="img/surelevation.webp" alt="" width="1600" height="1200" loading="lazy">
+            <img class="viewer__img" src="img/pergola.webp" alt="" width="1600" height="1200" loading="lazy">
+            <img class="viewer__img" src="img/renovation.webp" alt="" width="1600" height="1200" loading="lazy">
+            <div class="hud">
+              <span class="hud__tl mono" data-viewer-label>Fig. 04.01 — Charpente traditionnelle</span>
+              <span class="hud__br mono">Rendu 3D — exemple non contractuel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 05 · Contact ========== -->
+    <section class="section contact" id="contact">
+      <h2 class="monument" data-monument>Contact</h2>
+      <div class="col">
+        <div class="row-head" data-fade>
+          <p class="row-head__title">Visite, relevé et chiffrage.</p>
+          <p class="mono row-head__meta">(05) — Demande de devis</p>
+        </div>
+        <hr class="rule" data-rule>
+        <h3 class="display display--sm" data-lines>Un projet de charpente ?<br>Parlons-en sur place.</h3>
+        <p class="lead" data-fade>Décrivez votre projet en quelques lignes : nous vous rappelons pour fixer une visite et un relevé.</p>
+
+        <form class="form" novalidate data-form>
+          <fieldset class="chips" data-fade>
+            <legend class="mono">Type de projet</legend>
+            <label class="chip"><input type="checkbox" name="type" value="Charpente neuve"><span>Charpente neuve</span></label>
+            <label class="chip"><input type="checkbox" name="type" value="Ossature bois"><span>Ossature bois</span></label>
+            <label class="chip"><input type="checkbox" name="type" value="Lamellé-collé"><span>Lamellé-collé</span></label>
+            <label class="chip"><input type="checkbox" name="type" value="Surélévation"><span>Surélévation</span></label>
+            <label class="chip"><input type="checkbox" name="type" value="Rénovation"><span>Rénovation</span></label>
+            <label class="chip"><input type="checkbox" name="type" value="Autre"><span>Autre</span></label>
+          </fieldset>
+          <div class="fields" data-fade>
+            <label class="field"><span class="mono">Nom</span><input name="nom" autocomplete="name" required></label>
+            <label class="field"><span class="mono">Téléphone</span><input name="tel" type="tel" autocomplete="tel" required></label>
+            <label class="field"><span class="mono">Email</span><input name="email" type="email" autocomplete="email"></label>
+            <label class="field"><span class="mono">Commune du chantier</span><input name="commune" autocomplete="address-level2"></label>
+            <label class="field field--full"><span class="mono">Votre projet</span><textarea name="message" rows="3" required></textarea></label>
+          </div>
+          <div class="form__foot" data-fade>
+            <button class="text-link" type="submit"><span class="roll">Envoyer la demande</span><span aria-hidden="true">→</span></button>
+            <p class="mono form__status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+
+        <dl class="info">
+          <div data-fade><dt class="mono">(01) Atelier</dt><dd>Isère (38)</dd></div>
+          <div data-fade><dt class="mono">(02) Téléphone</dt><dd><a class="link" href="tel:+33400000000">04 00 00 00 00</a></dd></div>
+          <div data-fade><dt class="mono">(03) Email</dt><dd><a class="link" href="mailto:contact@faite-charpente.fr">contact@faite-charpente.fr</a></dd></div>
+          <div data-fade><dt class="mono">(04) Horaires</dt><dd>Lun – ven · 7 h 30 – 18 h</dd></div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <p class="mono footer__h">Navigation <span>(05)</span></p>
+        <ul class="mono">
+          <li><a class="link" href="#savoir-faire">Savoir-faire</a></li>
+          <li><a class="link" href="#anatomie">Anatomie</a></li>
+          <li><a class="link" href="#methode">Méthode</a></li>
+          <li><a class="link" href="#ouvrages">Ouvrages</a></li>
+          <li><a class="link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="mono footer__h">Atelier</p>
+        <ul class="mono">
+          <li>Isère (38)</li>
+          <li><a class="link" href="tel:+33400000000">04 00 00 00 00</a></li>
+          <li><a class="link" href="mailto:contact@faite-charpente.fr">contact@faite-charpente.fr</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="mono footer__h">Légal</p>
+        <ul class="mono">
+          <li>SIRET 000 000 000 00000</li>
+          <li>Décennale n° 0000000</li>
+          <li>Mentions légales</li>
+        </ul>
+      </div>
+      <div class="footer__end">
+        <a class="text-link" href="#top"><span class="roll">Haut de page</span><span aria-hidden="true">↑</span></a>
+      </div>
+    </div>
+    <p class="footer__mark" aria-hidden="true" data-footer-mark>Faîte</p>
+    <p class="mono footer__legal">© <span data-year>2026</span> Faîte — Charpente &amp; ossature bois · Rendus 3D d'exemples, non contractuels</p>
+  </footer>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/ScrollTrigger.min.js"></script>
+  <script src="vendor/lenis.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
