@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Bella Italia — Cuisine italienne gastronomique</title>
+  <meta name="description" content="Restaurant Bella Italia : cuisine italienne de saison, pâtes fraîches faites maison, produits importés d’Italie et cave de vins italiens. Réservez votre table.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ══════════ PRELOADER ══════════ -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <p class="loader-wordmark">Restaurant Bella Italia</p>
+      <span class="loader-rule"><i id="loaderBar"></i></span>
+    </div>
+  </div>
+
+  <!-- ══════════ CONTENU ══════════ -->
+  <main class="smooth" id="smooth">
+
+    <!-- ─── SCÈNE 1 · PASTEBOARD → ZOOM TEXTE → SÉRIE EN LUMIÈRE ─── -->
+    <section class="scene s-hero" id="hero" data-pin="5">
+      <div class="pin">
+
+        <div class="floaters" aria-hidden="true">
+          <figure class="fl" style="--x:-4%;  --y:13%; --w:196px" data-d="0.55"><img src="images/fl-01.jpg" alt=""></figure>
+          <figure class="fl" style="--x:21%;   --y:3%; --w:142px" data-d="0.90"><img src="images/fl-02.jpg" alt=""></figure>
+          <figure class="fl" style="--x:40%;  --y:-8%; --w:232px" data-d="0.40"><img src="images/fl-03.jpg" alt=""></figure>
+          <figure class="fl" style="--x:63%;  --y:7%; --w:126px" data-d="0.75"><img src="images/fl-04.jpg" alt=""></figure>
+          <figure class="fl" style="--x:85%;  --y:1%; --w:208px" data-d="1.00"><img src="images/fl-05.jpg" alt=""></figure>
+          <figure class="fl" style="--x:-2%;  --y:45%; --w:116px" data-d="0.50"><img src="images/fl-06.jpg" alt=""></figure>
+          <figure class="fl" style="--x:94%;  --y:37%; --w:172px" data-d="0.70"><img src="images/fl-07.jpg" alt=""></figure>
+          <figure class="fl" style="--x:13%;  --y:71%; --w:248px" data-d="0.35"><img src="images/fl-08.jpg" alt=""></figure>
+          <figure class="fl" style="--x:44%;  --y:81%; --w:134px" data-d="0.85"><img src="images/fl-09.jpg" alt=""></figure>
+          <figure class="fl" style="--x:73%;  --y:64%; --w:188px" data-d="0.60"><img src="images/fl-10.jpg" alt=""></figure>
+        </div>
+
+        <div class="hero-copy">
+          <p class="hero-kicker mono" id="heroKicker">RESTAURANT BELLA ITALIA — CUISINE ITALIENNE</p>
+          <h1 class="hero-title">
+            <span class="hero-line1" id="heroLine1">La grande cuisine italienne,</span>
+            <span class="hero-line2" id="heroLine2">
+              <span class="hl">servie avec</span>
+              <span class="grow" id="grow1"><img src="images/hero.jpg" alt="Tagliolini à la truffe noire, verre de vin rouge et huile d’olive sur une table sombre"></span>
+              <span class="hl">élégance.</span>
+            </span>
+          </h1>
+        </div>
+
+        <!-- calque plein écran : titre blanc sur l'image -->
+        <div class="spot" id="spot" aria-hidden="true">
+          <h2 class="spot-intro" id="spotIntro"><span>Cuisine</span> <span>italienne</span> <span>de</span> <span>saison,</span> <span>faite</span> <span>maison</span></h2>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── SCÈNE 2 · MANIFESTE (remplissage caractère par caractère) ─── -->
+    <section class="scene s-fill" id="manifeste" data-pin="3.5">
+      <div class="pin">
+        <p class="fill-text" id="fillText">Chez Bella Italia, chaque assiette commence au marché et se termine à votre table. Pâtes tirées à la main chaque matin, produits venus d’Italie, et un service <span class="boxed" id="boxedPhrase">attentif, jamais pressé<svg class="box-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path id="boxPath" d="M50,6 C88,4 98,22 97,50 C96,82 76,96 49,95 C16,94 3,76 4,48 C5,18 20,7 50,6 Z"/></svg></span>.</p>
+      </div>
+    </section>
+
+    <!-- ─── SCÈNE 3 · SÉLECTION (panneau blanc, masonry parallaxe) ─── -->
+    <section class="collection" id="travaux">
+      <header class="coll-head">
+        <p class="mono ash">LES SIGNATURES DE LA MAISON</p>
+        <h2 class="coll-title" id="collTitle">Ce que l’on vient goûter ici</h2>
+        <p class="coll-sub">Des recettes de famille, revisitées avec les plus beaux produits de saison.</p>
+        <p class="mono ash">HUIT ASSIETTES — DE MILAN À PALERME</p>
+      </header>
+
+      <div id="collGrid"></div>
+    </section>
+
+    <!-- ─── 5 · DEVISE — train de mots-clés géants sur bande lime ─── -->
+    <div class="band" id="temps">
+      <div class="diag to-lime" aria-hidden="true"></div>
+      <section class="scene s-motto" data-pin="4">
+        <div class="pin motto-pin">
+          <p class="motto-kicker mono" id="mottoKicker">CE QUI GUIDE NOTRE CUISINE</p>
+          <div class="motto-track" id="mottoTrack"></div>
+          <p class="motto-hint mono" id="mottoHint"></p>
+        </div>
+      </section>
+      <div class="diag from-lime" aria-hidden="true"></div>
+    </div>
+
+    <!-- ─── ★ LA CARTE — plats, prix, photos + réservation (rempli par carte.js) ─── -->
+    <section class="carte" id="carte">
+      <header class="carte-head">
+        <p class="carte-kicker mono ash reveal"></p>
+        <h2 class="carte-title reveal"></h2>
+        <p class="carte-sub reveal"></p>
+      </header>
+      <div class="carte-list" id="carteList"></div>
+      <p class="carte-tasting mono reveal"></p>
+      <div class="carte-book reveal" id="reserver">
+        <h3 class="book-title"></h3>
+        <p class="book-text"></p>
+        <a class="btn-book" href="#contact"></a>
+        <p class="book-hours mono ash"></p>
+      </div>
+    </section>
+
+    <!-- ─── SCÈNE 5 · « UN PROJET, 3 ÉTAPES » → LE PROCESSUS IMMERSIF ─── -->
+    <section class="scene s-night" id="explorer" data-pin="9">
+      <div class="pin">
+
+        <div class="night-line" id="nightLine">
+          <span class="hl nw" id="nw1">Une</span>
+          <span class="hl nw" id="nw2">soirée,</span>
+          <span class="grow" id="grow2"><img src="images/process.jpg" alt="Burrata et tomates anciennes, verres de vin rouge"></span>
+          <span class="hl nw" id="nw3">3 temps.</span>
+        </div>
+
+        <!-- compteur monumental : le numéro d'étape défile comme un odomètre -->
+        <div class="bignum" id="bigNum" aria-hidden="true"><span class="bignum-fixed">0</span><span class="bignum-roll"><span id="bigRoll"></span></span></div>
+
+        <!-- contenu de l'étape, à gauche -->
+        <div class="psteps" id="psteps"></div>
+
+        <p class="steps-cta" id="stepsCta">
+          <a href="#contact" data-nav id="stepsCtaLink">Réserver une table →<svg class="cta-oval" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path id="ctaOval" d="M50,6 C88,4 98,22 97,50 C96,82 76,96 49,95 C16,94 3,76 4,48 C5,18 20,7 50,6 Z"/></svg></a>
+        </p>
+
+        <!-- rideau de lames : essuie le plein écran SANS jamais dézoomer -->
+        <div class="wipe" id="nightWipe" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+      </div>
+    </section>
+
+    <!-- ─── 8 · PREUVE SOCIALE — citation en rideau, guillemets géants ─── -->
+    <section class="scene s-quote" id="temoignage" data-pin="3">
+      <div class="pin">
+        <div class="q-stack">
+          <span class="q-glyph" aria-hidden="true">“</span>
+          <blockquote class="q-block">
+            <p class="q-text" id="quoteText"></p>
+          </blockquote>
+          <div class="q-sign">
+            <span class="q-rule" aria-hidden="true"></span>
+            <div class="q-sign-row" id="quoteAuthorWrap">
+              <p class="q-name" id="quoteAuthor"></p>
+              <p class="q-ctx mono ash" id="figKicker"></p>
+              <p class="q-fig" id="bigFigure"><span class="fig-pre" id="figPre"></span><span class="fig-val" id="figVal">0</span><span class="fig-unit" id="figUnit"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SCÈNE 9 · OBJECTIONS — PHRASES + TRAÎNÉE D'IMAGES SOUS LA SOURIS ─── -->
+    <section class="scene s-final" id="final" data-pin="2.6">
+      <div class="pin">
+        <p class="final-text">
+          <span class="fs" id="fs1">Pas de surgelé.</span>
+          <span class="fs" id="fs2">Pas de raccourci.</span>
+          <span class="fs" id="fs3">Pas de chichis.</span><br>
+          <span class="fs" id="fs4">Juste l’Italie, <span class="pill" id="pillPhrase">dans l’assiette.<svg class="pill-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path id="pillPath" d="M50,6 C88,4 98,22 97,50 C96,82 76,96 49,95 C16,94 3,76 4,48 C5,18 20,7 50,6 Z"/></svg></span></span>
+        </p>
+
+        <!-- réserve d'images pour la traînée sous la souris -->
+        <div class="trail" id="trail" aria-hidden="true">
+          <img src="images/tr-01.jpg"   style="--tw:150px" alt="">
+          <img src="images/tr-02.jpg"   style="--tw:190px" alt="">
+          <img src="images/tr-03.jpg"  style="--tw:120px" alt="">
+          <img src="images/tr-04.jpg"  style="--tw:200px" alt="">
+          <img src="images/tr-05.jpg" style="--tw:96px"  alt="">
+          <img src="images/tr-06.jpg"  style="--tw:170px" alt="">
+          <img src="images/tr-07.jpg"  style="--tw:34px"  alt="">
+          <img src="images/tr-08.jpg"  style="--tw:140px" alt="">
+          <img src="images/tr-09.jpg"  style="--tw:200px" alt="">
+          <img src="images/tr-10.jpg" style="--tw:110px" alt="">
+          <img src="images/tr-11.jpg"  style="--tw:28px"  alt="">
+          <img src="images/tr-12.jpg"  style="--tw:160px" alt="">
+          <img src="images/tr-13.jpg"  style="--tw:130px" alt="">
+          <img src="images/tr-14.jpg"  style="--tw:180px" alt="">
+          <img src="images/tr-15.jpg"  style="--tw:40px"  alt="">
+          <img src="images/tr-16.jpg"  style="--tw:150px" alt="">
+          <img src="images/tr-17.jpg"  style="--tw:120px" alt="">
+          <img src="images/tr-18.jpg"  style="--tw:200px" alt="">
+          <img src="images/tr-19.jpg" style="--tw:100px" alt="">
+          <img src="images/tr-20.jpg"  style="--tw:170px" alt="">
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FOOTER ─── -->
+    <footer class="footer" id="contact">
+      <p class="footer-kicker mono ash reveal">RÉSERVER UNE TABLE</p>
+      <a class="footer-mail reveal" href="mailto:reservation@bellaitalia.fr"><span class="footer-mail-text">reservation@bellaitalia.fr</span></a>
+      <p class="footer-reassurance mono ash reveal">DU MARDI AU SAMEDI — 12 H–14 H 30 · 19 H–22 H 30 — CONFIRMATION SOUS 2 H</p>
+      <h2 class="footer-name" id="footerName" aria-label="Restaurant Bella Italia">Restaurant Bella Italia</h2>
+      <div class="footer-bottom">
+        <p class="mono ash">© 2026 — RESTAURANT BELLA ITALIA</p>
+        <p class="mono"><a href="https://www.instagram.com/bellaitalia.restaurant/" target="_blank" rel="noopener">INSTAGRAM ↗</a>&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/maps/search/Restaurant+Bella+Italia" target="_blank" rel="noopener">GOOGLE MAPS ↗</a></p>
+        <p class="mono ash">FATTO A MANO, OGNI GIORNO</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ══════════ CHROME FIXE — barre flottante en haut ══════════ -->
+
+  <header class="dock" id="dock">
+    <a class="dock-wordmark" href="#hero" data-nav>Restaurant Bella Italia</a>
+    <nav class="dock-nav" aria-label="Navigation principale">
+      <a class="dock-link mono" href="#travaux" data-nav>LA MAISON</a>
+      <a class="dock-link mono" href="#carte" data-nav>LA CARTE</a>
+    </nav>
+    <a class="dock-cta mono" href="#contact" data-nav>RÉSERVER UNE TABLE</a>
+  </header>
+
+  <script src="content.js"></script>
+  <script src="carte.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

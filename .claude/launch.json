@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "studio-antonin",
+      "name": "bella-italia",
       "runtimeExecutable": "node",
-      "runtimeArgs": [".claude/serve-studio-antonin.mjs"],
+      "runtimeArgs": [".claude/serve-bella-italia.mjs"],
       "port": 4385
     }
   ]
