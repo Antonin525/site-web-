@@ -54,11 +54,37 @@ RGBA=np.dstack([np.asarray(SRC,float),np.zeros((Hh,W))])
 
 def ease(x): x=min(max(x,0),1); return x*x*(3-2*x)
 
-def render(t,out,kfun=None):
+def pose_tile(T,pose,shadow):
+    # pose "carreleur" : bord du fond posé d'abord (H0), bord avant relevé de Tv, puis rabattu
+    i,j=T['i'],T['j']; c=(i+.5,j+.5); s=jac_scale(*c)
+    ang=np.radians(pose['rot']); ca,sa=np.cos(ang),np.sin(ang)
+    src=[];dst=[];gnd=[]
+    for du,dv in [(-.5,-.5),(.5,-.5),(.5,.5),(-.5,.5)]:
+        src.append(P(c[0]+du,c[1]+dv))
+        x,y=P(c[0]+pose['du']+du*ca-dv*sa, c[1]+pose['dv']+du*sa+dv*ca)
+        gnd.append((x,y)); dst.append((x,y-s*0.9*(pose['H0']+pose['Tv']*(dv+.5))))
+    lift=float(s*0.9*(pose['H0']+pose['Tv']*0.5))
+    a=Image.fromarray((T['mask']*255).astype('uint8'))
+    rgba=SRC.copy(); rgba.putalpha(a)
+    warped=rgba.transform((W,Hh),Image.PERSPECTIVE,tuple(quad_coeffs(dst,src)),Image.BICUBIC)
+    fa=pose['fa']
+    if fa<1: warped.putalpha(Image.eval(warped.getchannel('A'),lambda v:int(v*fa)))
+    sh=a.transform((W,Hh),Image.PERSPECTIVE,tuple(quad_coeffs(gnd,src)),Image.BILINEAR)
+    sh=sh.filter(ImageFilter.GaussianBlur(2+lift*0.15))
+    shadow[:]=np.maximum(shadow,np.asarray(sh,float)/255*0.6*fa)
+    return (T['cy']+1000,warped,max(2,int(round(s*0.035))),min(1.0,lift/(s*0.4+1e-6)))
+
+def render(t,out,kfun=None,posefun=None):
     base=np.asarray(SRC,float).copy()
     layers=[]
     holes=np.zeros((Hh,W)); shadow=np.zeros((Hh,W))
     for T in tiles:
+        if posefun:
+            pose=posefun(T)
+            if pose is None: continue                    # posée
+            holes=np.maximum(holes,T['hole'])
+            if pose['fa']<=0.01: continue                # pas encore apportée
+            layers.append(pose_tile(T,pose,shadow)); continue
         if kfun: k,fa=kfun(T)
         else: k,fa=float(np.sin(np.pi*ease((t-T['delay'])/0.62))),1.0   # 0 -> 1 -> 0
         if k<0.004: continue
