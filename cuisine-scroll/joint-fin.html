@@ -1,0 +1,334 @@
+<meta charset="utf-8">
+<title>Joint Fin, atelier de pose</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout : une grille de "joints" fins (1 px) structure toute la page, comme un calepinage ;
+   l'animation au scroll occupe le centre, le texte suit la pose étape par étape. */
+:root{
+  --chalk:#f1f2ef;      /* fond : blanc craie légèrement minéral */
+  --slab:#e4e6e2;       /* surfaces secondaires */
+  --ink:#1c2023;        /* texte : graphite */
+  --muted:#5d6468;
+  --joint:#c9cdca;      /* lignes de joint */
+  --accent:#1f5c55;     /* vert zellige */
+  --on-accent:#f1f2ef;
+  --display:"Archivo",system-ui,sans-serif;
+  --body:"Archivo",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --gutter:clamp(16px,4vw,48px);
+  --head:64px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --chalk:#15181a;--slab:#1e2225;--ink:#e8eae7;--muted:#9aa29f;--joint:#30363a;--accent:#5fb3a6;--on-accent:#0f1513;color-scheme:dark}}
+:root[data-theme="dark"]{--chalk:#15181a;--slab:#1e2225;--ink:#e8eae7;--muted:#9aa29f;--joint:#30363a;--accent:#5fb3a6;--on-accent:#0f1513;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--chalk);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;font-variation-settings:"wdth" 100}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{padding-inline:var(--gutter);max-width:1320px;margin-inline:auto}
+h1,h2,h3{font-family:var(--display);font-variation-settings:"wdth" 125;font-weight:700;letter-spacing:-.02em;line-height:1.02;text-wrap:balance;margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:.5em;font:600 15px/1 var(--body);padding:14px 20px;border:1px solid var(--ink);background:var(--ink);color:var(--chalk);text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+
+/* En-tête */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--chalk);border-bottom:1px solid var(--joint)}
+header .wrap{height:var(--head);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-variation-settings:"wdth" 125;font-weight:800;font-size:19px;text-decoration:none;letter-spacing:-.02em}
+.logo i{width:22px;height:22px;display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--chalk)}
+.logo i::before,.logo i::after,.logo i b,.logo i b+b{content:"";background:var(--ink)}
+nav{display:flex;gap:28px;font-size:15px}
+nav a{text-decoration:none;color:var(--muted)} nav a:hover{color:var(--ink)}
+@media (max-width:820px){nav{display:none}}
+
+/* Accroche */
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:var(--gutter);padding-block:clamp(48px,9vw,112px) clamp(32px,5vw,64px);align-items:end}
+.hero h1{font-size:clamp(44px,8.4vw,116px)}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{max-width:40ch;color:var(--muted);margin:0 0 24px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--joint);margin-top:8px}
+.facts div{padding:16px 0;border-right:1px solid var(--joint);padding-inline:16px}
+.facts div:first-child{padding-left:0}.facts div:last-child{border-right:0}
+.facts b{display:block;font-family:var(--mono);font-weight:500;font-size:20px;font-variant-numeric:tabular-nums}
+.facts span{font-size:13px;color:var(--muted)}
+@media (max-width:820px){.hero{grid-template-columns:1fr}}
+
+/* Animation au scroll */
+.scrub{position:relative;height:520vh;border-top:1px solid var(--joint)}
+.stage{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--head));height:calc(100vh - var(--head));display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--gutter);align-items:center;padding-block:24px}
+.frame{height:calc(100vh - var(--head) - 48px);aspect-ratio:2/3;max-width:100%;position:relative;background:var(--slab);border:1px solid var(--joint)}
+.frame canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.frame .scale{position:absolute;left:0;right:0;bottom:-22px;font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;justify-content:space-between}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;max-width:520px}
+.steps li{padding:18px 0;border-top:1px solid var(--joint);display:grid;grid-template-columns:44px 1fr;gap:4px 12px;opacity:.38;transition:opacity .35s}
+.steps li.on{opacity:1}
+.steps .n{font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:6px}
+.steps h3{font-size:clamp(22px,2.4vw,30px)}
+.steps p{grid-column:2;margin:0;color:var(--muted);font-size:15px;max-width:44ch}
+.count{grid-column:2;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px;margin-top:6px;display:flex;align-items:center;gap:10px}
+.count .bar{flex:1;max-width:180px;height:4px;background:var(--joint);position:relative}
+.count .bar i{position:absolute;inset:0 auto 0 0;background:var(--accent);width:0}
+@media (max-width:820px){
+  .stage{grid-template-columns:1fr;grid-template-rows:100%;padding:0;align-items:stretch}
+  .frame{height:100%;width:100%;aspect-ratio:auto;grid-area:1/1;border:0}
+  .frame .scale{display:none}
+  .steps{grid-area:1/1;align-self:start;position:relative;z-index:1;margin:12px 12px 0;background:color-mix(in srgb,var(--chalk) 92%,transparent);backdrop-filter:blur(6px);padding:4px 16px;border:1px solid var(--joint)}
+  .steps li{display:none;border:0}
+  .steps li.on{display:grid}
+}
+
+/* Sections */
+section.block{padding-block:clamp(64px,9vw,120px);border-top:1px solid var(--joint)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+.sec-head h2{font-size:clamp(32px,5vw,64px)}
+.sec-head p{max-width:46ch;color:var(--muted);margin:0}
+
+.swatches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--joint);border:1px solid var(--joint)}
+.sw{background:var(--chalk);display:grid;grid-template-rows:auto 1fr}
+.sw img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.sw .meta{padding:16px;display:grid;gap:4px}
+.sw h3{font-size:20px;font-variation-settings:"wdth" 110}
+.sw dl{margin:6px 0 0;display:grid;grid-template-columns:auto 1fr;gap:2px 14px;font-size:13px}
+.sw dt{font-family:var(--mono);color:var(--muted);font-size:12px}
+.sw dd{margin:0;font-variant-numeric:tabular-nums}
+@media (max-width:900px){.swatches{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.swatches{grid-template-columns:1fr}}
+
+.process{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink)}
+.process div{padding:20px 20px 0 0;display:grid;gap:8px;align-content:start}
+.process b{font-family:var(--mono);font-weight:500;font-size:13px;color:var(--accent)}
+.process h3{font-size:22px;font-variation-settings:"wdth" 110}
+.process p{margin:0;color:var(--muted);font-size:15px}
+@media (max-width:900px){.process{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:28px}}
+@media (max-width:520px){.process{grid-template-columns:1fr}}
+
+/* Calculateur */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1px;background:var(--joint);border:1px solid var(--joint)}
+.calc form,.calc .out{background:var(--chalk);padding:clamp(20px,3vw,36px);display:grid;gap:18px;align-content:start}
+.field{display:grid;gap:6px}
+.field label{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input,select,textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--slab);border:1px solid var(--joint);padding:12px;border-radius:0;width:100%}
+.out .big{font-family:var(--display);font-variation-settings:"wdth" 125;font-weight:700;font-size:clamp(44px,6vw,72px);line-height:1;font-variant-numeric:tabular-nums}
+.out table{width:100%;border-collapse:collapse;font-size:15px}
+.out td{padding:10px 0;border-top:1px solid var(--joint)}
+.out td:last-child{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.out small{color:var(--muted);font-size:13px}
+@media (max-width:820px){.calc{grid-template-columns:1fr}}
+
+/* Devis */
+.quote{display:grid;grid-template-columns:1fr 1.2fr;gap:var(--gutter)}
+.quote form{display:grid;gap:14px}
+.quote .ok{background:var(--accent);color:var(--on-accent);padding:16px;font-weight:600}
+@media (max-width:820px){.quote{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--joint);padding-block:28px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Joint Fin, accueil"><i><b></b><b></b></i>Joint Fin</a>
+    <nav aria-label="Navigation principale">
+      <a href="#pose">La pose</a><a href="#matieres">Matières</a><a href="#methode">Méthode</a><a href="#calcul">Calculer</a>
+    </nav>
+    <a class="btn" href="#devis">Demander un devis</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <p class="eyebrow">Carrelage · Marbre · Pose sur mesure</p>
+      <h1>Chaque carreau posé <em>à la main</em>.</h1>
+    </div>
+    <div>
+      <p>Sols en grès cérame grand format, crédences en marbre, salles de bain. Une équipe de carreleurs qui prépare le support, pose et rend le chantier propre.</p>
+      <div class="cta"><a class="btn" href="#devis">Demander un devis</a><a class="btn ghost" href="#pose">Voir une pose ↓</a></div>
+      <div class="facts">
+        <div><b>2 mm</b><span>joint fin, régulier</span></div>
+        <div><b>120×60</b><span>formats jusqu'à 160×320</span></div>
+        <div><b>10 ans</b><span>garantie décennale</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="scrub" id="pose" aria-label="Une cuisine, de la chape à la crédence">
+    <div class="wrap stage">
+      <ol class="steps" id="steps">
+        <li class="on"><span class="n">01</span><h3>Le support</h3><p>Chape ragréée, planéité contrôlée à la règle de 2 m. Colle C2S1 étalée au peigne de 10 mm.</p></li>
+        <li><span class="n">02</span><h3>La pose du sol</h3><p>Dalle par dalle, rangée par rangée, du fond vers la sortie. Chaque dalle est posée par un bord, rabattue, puis battue au maillet.</p>
+          <div class="count"><span id="c-sol">0 / 14</span><span class="bar"><i id="b-sol"></i></span></div></li>
+        <li><span class="n">03</span><h3>La crédence</h3><p>Plaques de marbre grand format, calepinées pour suivre la veine d'une plaque à l'autre.</p>
+          <div class="count"><span id="c-mur">0 / 12</span><span class="bar"><i id="b-mur"></i></span></div></li>
+        <li><span class="n">04</span><h3>Livré</h3><p>Joints tirés, nettoyage à l'acide doux, cuisine rendue prête à vivre.</p></li>
+      </ol>
+      <div class="frame">
+        <canvas id="cv" aria-label="Animation : le carrelage puis le marbre se posent au fil du scroll"></canvas>
+        <div class="scale"><span>0</span><span>Faites défiler</span><span>Fin</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="matieres">
+    <div class="wrap">
+      <div class="sec-head"><h2>Matières</h2><p>Une sélection courte, testée sur nos chantiers. Échantillons disponibles à l'atelier.</p></div>
+      <div class="swatches">
+        <article class="sw"><img src="matieres/gres-pietra.webp" alt="Grès cérame gris clair Pietra" loading="lazy"><div class="meta"><span class="eyebrow">Grès cérame · Sol</span><h3>Pietra</h3><dl><dt>Format</dt><dd>120×60 cm, rectifié</dd><dt>Épaisseur</dt><dd>9 mm</dd><dt>Glissance</dt><dd>R10</dd></dl></div></article>
+        <article class="sw"><img src="matieres/gres-anthracite.webp" alt="Grès cérame anthracite" loading="lazy"><div class="meta"><span class="eyebrow">Grès cérame · Sol</span><h3>Anthracite</h3><dl><dt>Format</dt><dd>80×80 cm, rectifié</dd><dt>Épaisseur</dt><dd>10 mm</dd><dt>Glissance</dt><dd>R11</dd></dl></div></article>
+        <article class="sw"><img src="matieres/gres-sable.webp" alt="Grès cérame beige sable" loading="lazy"><div class="meta"><span class="eyebrow">Grès cérame · Sol</span><h3>Sable</h3><dl><dt>Format</dt><dd>60×60 cm</dd><dt>Épaisseur</dt><dd>9 mm</dd><dt>Glissance</dt><dd>R10</dd></dl></div></article>
+        <article class="sw"><img src="matieres/marbre-calacatta.webp" alt="Marbre blanc veiné gris" loading="lazy"><div class="meta"><span class="eyebrow">Marbre · Crédence</span><h3>Calacatta</h3><dl><dt>Format</dt><dd>160×320 cm</dd><dt>Épaisseur</dt><dd>6 mm</dd><dt>Finition</dt><dd>Polie</dd></dl></div></article>
+        <article class="sw"><img src="matieres/marbre-nero.webp" alt="Marbre noir veiné blanc" loading="lazy"><div class="meta"><span class="eyebrow">Marbre · Crédence</span><h3>Nero</h3><dl><dt>Format</dt><dd>120×280 cm</dd><dt>Épaisseur</dt><dd>6 mm</dd><dt>Finition</dt><dd>Adoucie</dd></dl></div></article>
+        <article class="sw"><img src="matieres/marbre-verde.webp" alt="Marbre clair veiné vert" loading="lazy"><div class="meta"><span class="eyebrow">Marbre · Crédence</span><h3>Verde</h3><dl><dt>Format</dt><dd>120×280 cm</dd><dt>Épaisseur</dt><dd>6 mm</dd><dt>Finition</dt><dd>Polie</dd></dl></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="methode">
+    <div class="wrap">
+      <div class="sec-head"><h2>Méthode</h2><p>Les mêmes quatre étapes sur chaque chantier, de la salle de bain de 4 m² au plateau de 200 m².</p></div>
+      <div class="process">
+        <div><b>01 · Visite</b><h3>Relevé et calepinage</h3><p>Mesures sur place, plan de pose pour centrer les coupes et éviter les bandes de moins de 10 cm.</p></div>
+        <div><b>02 · Support</b><h3>Préparation</h3><p>Dépose, ragréage, primaire et contrôle de planéité : 5 mm maximum sous la règle de 2 m.</p></div>
+        <div><b>03 · Pose</b><h3>Double encollage</h3><p>Colle sur le support et au dos de la dalle pour les grands formats, croisillons et système d'autonivellement.</p></div>
+        <div><b>04 · Finition</b><h3>Joints et nettoyage</h3><p>Joint ciment ou époxy dans la teinte choisie, nettoyage de fin de chantier, réception avec vous.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="calcul">
+    <div class="wrap">
+      <div class="sec-head"><h2>Combien commander ?</h2><p>Une estimation rapide pour une pièce rectangulaire. Nous confirmons les quantités à la visite.</p></div>
+      <div class="calc">
+        <form id="calc-form" novalidate>
+          <div class="row2">
+            <div class="field"><label for="c-l">Longueur (m)</label><input id="c-l" type="number" min="0.5" step="0.1" value="4.2" inputmode="decimal"></div>
+            <div class="field"><label for="c-w">Largeur (m)</label><input id="c-w" type="number" min="0.5" step="0.1" value="3.1" inputmode="decimal"></div>
+          </div>
+          <div class="field"><label for="c-f">Format</label>
+            <select id="c-f">
+              <option value="0.72|1.44">120×60 cm · carton de 1,44 m²</option>
+              <option value="0.64|1.28">80×80 cm · carton de 1,28 m²</option>
+              <option value="0.36|1.44">60×60 cm · carton de 1,44 m²</option>
+            </select></div>
+          <div class="field"><label for="c-p">Type de pose</label>
+            <select id="c-p">
+              <option value="10">Droite · 10 % de chutes</option>
+              <option value="15">Décalée · 15 % de chutes</option>
+              <option value="20">Diagonale · 20 % de chutes</option>
+            </select></div>
+        </form>
+        <div class="out" aria-live="polite">
+          <span class="eyebrow">À commander</span>
+          <div class="big"><span id="o-boxes">0</span> cartons</div>
+          <table>
+            <tr><td>Surface de la pièce</td><td id="o-area">0 m²</td></tr>
+            <tr><td>Avec chutes</td><td id="o-need">0 m²</td></tr>
+            <tr><td>Dalles</td><td id="o-tiles">0</td></tr>
+            <tr><td>Colle C2S1 (sacs de 25 kg)</td><td id="o-glue">0</td></tr>
+          </table>
+          <small>Colle calculée en double encollage, environ 6 kg/m².</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="devis">
+    <div class="wrap quote">
+      <div>
+        <h2 style="font-size:clamp(32px,5vw,64px)">Parlons de votre chantier</h2>
+        <p style="color:var(--muted);max-width:40ch">Décrivez la pièce et la surface. Nous revenons vers vous sous 48 h pour fixer une visite.</p>
+      </div>
+      <form id="quote-form">
+        <div class="row2">
+          <div class="field"><label for="q-name">Nom</label><input id="q-name" required autocomplete="name"></div>
+          <div class="field"><label for="q-mail">E-mail</label><input id="q-mail" type="email" required autocomplete="email"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="q-room">Pièce</label><select id="q-room"><option>Cuisine</option><option>Salle de bain</option><option>Séjour</option><option>Terrasse</option></select></div>
+          <div class="field"><label for="q-area">Surface (m²)</label><input id="q-area" type="number" min="1" inputmode="decimal"></div>
+        </div>
+        <div class="field"><label for="q-msg">Votre projet</label><textarea id="q-msg" rows="4"></textarea></div>
+        <div><button class="btn" type="submit">Envoyer la demande</button></div>
+        <p class="ok" id="q-ok" hidden>Merci, votre demande est prête. Sur le vrai site, elle serait envoyée à l'atelier.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>Joint Fin, atelier de pose</span><span>Maquette de démonstration</span></div></footer>
+
+<script>
+/* ---------- Animation au scroll ---------- */
+(() => {
+  const N = 120, section = document.getElementById('pose'), cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+  const steps = [...document.querySelectorAll('#steps li')];
+  const frames = Array.from({length: N}, (_, i) => {
+    const im = new Image();
+    im.src = `frames/frame-${String(i + 1).padStart(3, '0')}.webp`;
+    im.onload = () => { if (i === cur) draw(); };
+    return im;
+  });
+  let cur = 0;
+  function size() {
+    const r = Math.min(devicePixelRatio || 1, 2);
+    cv.width = cv.clientWidth * r; cv.height = cv.clientHeight * r; draw();
+  }
+  function draw() {
+    const im = frames[cur]; if (!im.complete || !im.naturalWidth) return;
+    const s = Math.max(cv.width / im.naturalWidth, cv.height / im.naturalHeight);
+    const w = im.naturalWidth * s, h = im.naturalHeight * s;
+    ctx.drawImage(im, (cv.width - w) / 2, (cv.height - h) / 2, w, h);
+  }
+  // mêmes horaires que la génération des images (assemblage.py)
+  const tileDone = n => 0.03 + 0.042 * n + 0.068;
+  function ui(t) {
+    let sol = 0; for (let n = 0; n < 14; n++) if (t >= tileDone(n)) sol++;
+    const mur = Math.round(Math.min(Math.max((t - 0.64) / 0.34, 0), 1) * 12);
+    const k = t < 0.03 ? 0 : t < 0.62 ? 1 : mur < 12 ? 2 : 3;
+    steps.forEach((li, i) => li.classList.toggle('on', i === k));
+    document.getElementById('c-sol').textContent = `${sol} / 14 dalles`;
+    document.getElementById('b-sol').style.width = sol / 14 * 100 + '%';
+    document.getElementById('c-mur').textContent = `${mur} / 12 plaques`;
+    document.getElementById('b-mur').style.width = mur / 12 * 100 + '%';
+  }
+  function onScroll() {
+    const max = section.offsetHeight - innerHeight;
+    const p = Math.min(Math.max(-section.getBoundingClientRect().top / max, 0), 1);
+    const i = Math.round(p * (N - 1));
+    if (i !== cur) { cur = i; requestAnimationFrame(draw); }
+    ui(i / (N - 1) * 1.08 - 0.02);
+  }
+  addEventListener('scroll', onScroll, {passive: true});
+  addEventListener('resize', size);
+  size(); onScroll();
+})();
+
+/* ---------- Calculateur ---------- */
+(() => {
+  const $ = id => document.getElementById(id);
+  const fmt = (n, d = 1) => n.toLocaleString('fr-FR', {maximumFractionDigits: d});
+  function calc() {
+    const l = parseFloat($('c-l').value) || 0, w = parseFloat($('c-w').value) || 0;
+    const [tile, box] = $('c-f').value.split('|').map(Number);
+    const waste = Number($('c-p').value) / 100;
+    const area = l * w, need = area * (1 + waste);
+    const boxes = Math.ceil(need / box);
+    $('o-area').textContent = fmt(area) + ' m²';
+    $('o-need').textContent = fmt(need) + ' m²';
+    $('o-boxes').textContent = boxes;
+    $('o-tiles').textContent = Math.round(boxes * box / tile);
+    $('o-glue').textContent = Math.ceil(area * 6 / 25);
+  }
+  $('calc-form').addEventListener('input', calc); calc();
+  $('quote-form').addEventListener('submit', e => { e.preventDefault(); $('q-ok').hidden = false; });
+})();
+</script>
