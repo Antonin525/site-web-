@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cuisine — assemblage au scroll</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#f4f2ef;color:#1d1d1b;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+  .intro,.outro{min-height:70vh;display:grid;place-items:center;text-align:center;padding:0 16px}
+  .intro h1{font-size:clamp(2rem,6vw,4rem);font-weight:500;letter-spacing:-.02em}
+  .intro p,.outro p{opacity:.6;margin-top:.6em}
+
+  /* --- effet au scroll --- */
+  .scrub{height:400vh;position:relative}            /* longueur du scroll = durée de l'animation */
+  .scrub__sticky{position:sticky;top:0;height:100vh;overflow:hidden}
+  .scrub canvas{width:100%;height:100%;display:block}
+</style>
+</head>
+<body>
+
+<section class="intro">
+  <div><h1>Votre cuisine, pièce par pièce</h1><p>Faites défiler ↓</p></div>
+</section>
+
+<section class="scrub" data-frames="90" data-path="frames/frame-{n}.webp">
+  <div class="scrub__sticky"><canvas></canvas></div>
+</section>
+
+<section class="outro"><p>Carrelage et marbre posés.</p></section>
+
+<script>
+(() => {
+  const section = document.querySelector('.scrub');
+  const canvas = section.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const count = +section.dataset.frames;
+  const src = n => section.dataset.path.replace('{n}', String(n).padStart(3, '0'));
+
+  // Précharge toutes les images
+  const frames = Array.from({ length: count }, (_, i) => {
+    const img = new Image();
+    img.src = src(i + 1);
+    img.onload = () => { if (i === current) draw(); };
+    return img;
+  });
+
+  let current = 0;
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = canvas.clientWidth * dpr;
+    canvas.height = canvas.clientHeight * dpr;
+    draw();
+  }
+
+  // Dessine l'image en "object-fit: cover"
+  function draw() {
+    const img = frames[current];
+    if (!img.complete || !img.naturalWidth) return;
+    const cw = canvas.width, ch = canvas.height;
+    const s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+    const w = img.naturalWidth * s, h = img.naturalHeight * s;
+    ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+  }
+
+  function onScroll() {
+    const rect = section.getBoundingClientRect();
+    const max = section.offsetHeight - window.innerHeight;
+    const progress = Math.min(Math.max(-rect.top / max, 0), 1);
+    const next = Math.round(progress * (count - 1));
+    if (next !== current) { current = next; requestAnimationFrame(draw); }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', resize);
+  resize();
+  onScroll();
+})();
+</script>
+</body>
+</html>

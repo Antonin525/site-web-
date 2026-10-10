@@ -54,13 +54,13 @@ RGBA=np.dstack([np.asarray(SRC,float),np.zeros((Hh,W))])
 
 def ease(x): x=min(max(x,0),1); return x*x*(3-2*x)
 
-def render(t,out):
+def render(t,out,kfun=None):
     base=np.asarray(SRC,float).copy()
     layers=[]
     holes=np.zeros((Hh,W)); shadow=np.zeros((Hh,W))
     for T in tiles:
-        p=ease((t-T['delay'])/0.62)        # 0..1 up then down handled via bump
-        k=np.sin(np.pi*p)                  # 0 -> 1 -> 0
+        if kfun: k,fa=kfun(T)
+        else: k,fa=float(np.sin(np.pi*ease((t-T['delay'])/0.62))),1.0   # 0 -> 1 -> 0
         if k<0.004: continue
         holes=np.maximum(holes,T['hole']*min(1,k*25))
         i,j=T['i'],T['j']; c=(i+.5,j+.5)
@@ -78,10 +78,11 @@ def render(t,out):
         a=Image.fromarray((T['mask']*255).astype('uint8'))
         rgba=SRC.copy(); rgba.putalpha(a)
         warped=rgba.transform((W,Hh),Image.PERSPECTIVE,tuple(co),Image.BICUBIC)
+        if fa<1: warped.putalpha(Image.eval(warped.getchannel('A'),lambda v:int(v*fa)))
         # shadow: tile footprint on ground, no lift
         sh=a.transform((W,Hh),Image.PERSPECTIVE,tuple(quad_coeffs([ (d[0], d[1]+lift) for d in dst],src)),Image.BILINEAR)
         sh=sh.filter(ImageFilter.GaussianBlur(2+lift*0.12))
-        shadow=np.maximum(shadow,np.asarray(sh,float)/255*(0.75-0.35*k))
+        shadow=np.maximum(shadow,np.asarray(sh,float)/255*max(0.0,0.75-0.35*k)*fa)
         thick=max(2,int(round(s*0.035)))
         layers.append((T['cy']-lift*0.01,warped,thick,k))
     # compose: holes reveal subfloor
@@ -104,6 +105,7 @@ def render(t,out):
         rgb=Image.eval(warped.convert('RGB'),lambda v:min(255,int(v*(1+0.06*k))))
         rgb.putalpha(al)
         img=Image.alpha_composite(img,rgb)
+    if out is None: return img.convert('RGB')
     img.convert('RGB').save(out,quality=92)
 
 if __name__=='__main__':

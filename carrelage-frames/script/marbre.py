@@ -25,23 +25,28 @@ solid=np.maximum.reduce([poly([(443,633),(470,630),(535,700),(535,782),(443,782)
                          poly([(495,497),(690,520),(690,566),(495,550)])])              # hotte
 thin=np.maximum(poly([(240,612),(305,612),(312,700),(300,790),(262,818),(236,818)]),     # robinet
                 poly([(8,660),(70,668),(150,700),(150,770),(120,840),(45,885),(8,885)])) # plante
-thin=thin*((lum<185)|(sat>28))
-OBJ=np.clip(solid+thin,0,1)
-OBJ=np.asarray(Image.fromarray((OBJ*255).astype('uint8')).filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.GaussianBlur(0.8)),float)/255
-
-# clean marble behind the objects (normalized-convolution inpainting) so slabs don't carry them
-known=((OBJ<0.02)&(WALL>0)).astype(float)
+ZONE=np.clip(solid+thin,0,1)
 def box(a,r):
     for ax in (0,1):
         c=np.cumsum(np.pad(a,[(r+1,r) if i==ax else (0,0) for i in range(a.ndim)],mode='edge'),axis=ax)
         a=(np.take(c,range(2*r+1,c.shape[ax]),axis=ax)-np.take(c,range(0,c.shape[ax]-2*r-1),axis=ax))/(2*r+1)
     return a
 def gb(a,r): return box(box(box(a,r),r),r)
-fill=A.copy()
-for r in (30,15,8,4,2):
-    kb=gb(known,r)+1e-9
-    est=np.dstack([gb(fill[...,c]*known,r) for c in range(3)])/kb[...,None]
-    fill=np.where((known==0)[...,None]&(kb[...,None]>1e-4),est,fill)
+def inpaint(known):
+    fill=A.copy()
+    for r in (30,15,8,4,2):
+        kb=gb(known,r)+1e-9
+        est=np.dstack([gb(fill[...,c]*known,r) for c in range(3)])/kb[...,None]
+        fill=np.where((known==0)[...,None]&(kb[...,None]>1e-4),est,fill)
+    return fill
+# objects = pixels inside the zones that differ clearly from the marble behind them
+rough=inpaint(((ZONE<0.5)&(WALL>0)).astype(float))
+diff=np.abs(A-rough).max(2)
+m=Image.fromarray(((ZONE>0.5)&(diff>38)).astype('uint8')*255)
+m=m.filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.MinFilter(5)).filter(ImageFilter.MaxFilter(5))  # close, drop thin veins
+m=m.filter(ImageFilter.GaussianBlur(0.8))
+OBJ=np.maximum(np.asarray(m,float)/255*(ZONE>0.5),poly([(495,497),(690,520),(690,566),(495,550)]))
+fill=inpaint(((OBJ<0.02)&(WALL>0)).astype(float))
 SLAB=Image.fromarray(fill.clip(0,255).astype('uint8'))
 # revealed wall: grey render with vertical adhesive ribs, lit like the original
 light=np.asarray(Image.fromarray(lum.astype('uint8')).filter(ImageFilter.GaussianBlur(40)),float)
@@ -73,11 +78,12 @@ for a in range(4):
 def ease(x): x=min(max(x,0),1); return x*x*(3-2*x)
 VP=np.array([1214.,656.])
 
-def render(t,out,base_img=None):
+def render(t,out,base_img=None,kfun=None):
     srcimg=SRC if base_img is None else base_img
     base=np.asarray(srcimg,float).copy(); holes=np.zeros((Hh,W)); shadow=np.zeros((Hh,W)); layers=[]
     for T in pieces:
-        k=float(np.sin(np.pi*ease((t-T['delay'])/0.62)))
+        if kfun: k,fa=kfun(T)
+        else: k,fa=float(np.sin(np.pi*ease((t-T['delay'])/0.62))),1.0
         if k<0.004: continue
         holes=np.maximum(holes,T['hole']*min(1,k*25))
         (s0,s1),(h0,h1)=T['s'],T['h']; cs,ch=(s0+s1)/2,(h0+h1)/2
@@ -98,10 +104,11 @@ def render(t,out,base_img=None):
         al=Image.fromarray((T['mask']*255).astype('uint8'))
         rgba=SLAB.copy(); rgba.putalpha(al)
         warped=rgba.transform((W,Hh),Image.PERSPECTIVE,tuple(co),Image.BICUBIC)
+        if fa<1: warped.putalpha(Image.eval(warped.getchannel('A'),lambda v:int(v*fa)))
         # shadow cast on the wall, just behind the slab
         sco=quad_coeffs([tuple(np.array(q)-off*0.55) for q in dst],src)
         sh=al.transform((W,Hh),Image.PERSPECTIVE,tuple(sco),Image.BILINEAR).filter(ImageFilter.GaussianBlur(3+10*k))
-        shadow=np.maximum(shadow,np.asarray(sh,float)/255*0.5)
+        shadow=np.maximum(shadow,np.asarray(sh,float)/255*0.5*fa)
         layers.append((T['out']*k,warped,max(2,int(size*0.025)),k,d))
     hm=holes[...,None]
     base=base*(1-hm)+SUB*hm
@@ -118,6 +125,7 @@ def render(t,out,base_img=None):
     # put the foreground objects back on top
     fg=srcimg.copy(); fg.putalpha(Image.fromarray((OBJ*255).astype('uint8')))
     img=Image.alpha_composite(img,fg)
+    if out is None: return img.convert('RGB')
     img.convert('RGB').save(out,quality=92)
 
 if __name__=='__main__':
