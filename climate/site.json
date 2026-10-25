@@ -1,0 +1,41 @@
+{
+  "brand": "Climate",
+  "title": "Climate — Climatisation et pompes à chaleur",
+  "meta_description": "Climate installe et entretient climatisations et pompes à chaleur pour les particuliers et les professionnels.",
+  "email": "contact@climate.fr",
+  "lang": "fr",
+  "shape": "cloud",
+  "palette": ["#4d8cff", "#8f52f5", "#fa579e", "#ff9438", "#99123a"],
+  "nav": ["Accueil", "À propos", "Services", "Résultats", "Contact"],
+  "hero": {
+    "title": ["Le bon climat,", "toute l'année"],
+    "lead": "Nous installons et entretenons climatisations et pompes à chaleur. Pour les maisons, les bureaux et les commerces qui veulent du confort sans exploser la facture."
+  },
+  "about": {
+    "title": ["Des techniciens", "certifiés"],
+    "text": "Une équipe de techniciens frigoristes certifiés RGE, formés sur les grandes marques du marché. Nous étudions votre logement, dimensionnons l'équipement au plus juste et posons tout nous-mêmes. Un seul interlocuteur, du devis à l'entretien."
+  },
+  "benefits": {
+    "title": ["Ce que nous", "prenons en charge"],
+    "items": [
+      {"icon": "target", "text": "Étude thermique et dimensionnement précis avant chaque devis."},
+      {"icon": "wrench", "text": "Pose propre et mise en service par nos propres techniciens."},
+      {"icon": "euro", "text": "Montage des dossiers d'aides pour réduire votre reste à charge."},
+      {"icon": "leaf", "text": "Entretien annuel pour garder un rendement maximal et durable."}
+    ]
+  },
+  "results": {
+    "title": ["Des résultats", "bien concrets"],
+    "lead": "Moyennes constatées sur nos chantiers des douze derniers mois.",
+    "figures": []
+  },
+  "figures": [
+    {"value": 40, "suffix": " %", "label": "d'économies<br>sur le chauffage"},
+    {"value": 48, "suffix": " h", "label": "de délai moyen<br>d'intervention"},
+    {"value": 4.9, "decimals": 1, "suffix": "/5", "label": "de satisfaction<br>client moyenne"}
+  ],
+  "contact": {
+    "title": ["Parlons de", "votre confort."],
+    "lead": "Une installation, un remplacement, un entretien ?<br>Écrivez-nous."
+  }
+}

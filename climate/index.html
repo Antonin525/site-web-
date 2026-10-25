@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Climate — Climatisation et pompes à chaleur</title>
+<meta name="description" content="Climate installe et entretient climatisations et pompes à chaleur pour les particuliers et les professionnels.">
+<link rel="stylesheet" href="./css/styles.css?v=20261025">
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three.module.js",
+    "three/examples/jsm/loaders/SVGLoader.js": "./vendor/SVGLoader.js"
+  }
+}
+</script>
+</head>
+<body>
+<div class="loader" id="loader" role="status" aria-live="polite">
+  <div class="loader-inner">
+    <span class="loader-value"><span id="loader-count">00</span><span class="loader-unit">%</span></span>
+    <span class="loader-bar"><span id="loader-fill"></span></span>
+    <span class="loader-hint">Chargement</span>
+  </div>
+</div>
+<script>
+(function () {
+  var el = document.getElementById('loader'), count = document.getElementById('loader-count'), fill = document.getElementById('loader-fill');
+  var start = performance.now(), ready = false, rampAt = 0, shownAtRamp = 0, shown = 0, finished = false;
+  var MIN_HOLD = 0, RAMP = 180;   // ms: minimum time on screen, then the run to 100
+  document.body.classList.add('is-loading');
+  function finish() {
+    if (finished) return;
+    finished = true;
+    count.textContent = '100';
+    fill.style.transform = 'scaleX(1)';
+    el.classList.add('is-done');
+    document.body.classList.remove('is-loading');
+    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 900);
+  }
+  function tick(now) {
+    if (finished) return;
+    if (ready && !rampAt && now - start >= MIN_HOLD) { rampAt = now; shownAtRamp = shown; }
+    if (rampAt) {
+      var k = Math.min(1, (now - rampAt) / RAMP);
+      shown = shownAtRamp + (100 - shownAtRamp) * (1 - Math.pow(1 - k, 3));
+    } else {
+      // Time-based pseudo progress while the modules and the scene are prepared.
+      shown = 92 * (1 - Math.exp(-(now - start) / 1600));
+    }
+    count.textContent = String(Math.round(shown)).padStart(2, '0');
+    fill.style.transform = 'scaleX(' + (shown / 100) + ')';
+    if (rampAt && shown >= 99.5) { finish(); return; }
+    requestAnimationFrame(tick);
+  }
+  window.__glassLoader = { done: function () { ready = true; } };
+  requestAnimationFrame(tick);
+  setTimeout(function () { window.__glassLoader.done(); }, 15000);   // never trap the visitor
+  setTimeout(finish, 17000);
+})();
+</script>
+<div class="cursor-inner"></div>
+<div class="cursor-outer"><span class="cursor-ticks"><span></span><span></span><span></span><span></span></span></div>
+<div class="cursor-label" aria-hidden="true">000</div>
+<div class="cinematic-container">
+<div class="main-header">
+  <a class="brand" href="#slide-1">
+    <span class="brand-mark" aria-hidden="true"><svg role="img" viewBox="0 0 572 572" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M315.994 213.542L447.692 43.1698L528.776 124.254L358.308 256.024L572 228.665V343.335L358.394 315.986L528.775 447.69L447.691 528.774L315.986 358.392L343.335 572H228.665L256.021 358.329L124.311 528.719L43.2265 447.635L213.522 315.997L0 343.335V228.665L213.607 256.013L43.2258 124.31L124.31 43.2251L256.013 213.605L228.665 0H343.335L315.994 213.542Z"/></svg></span>
+    <span class="brand-text">Climate</span>
+  </a>
+  <nav class="header-nav" aria-label="Chapitres">
+    <a href="#slide-1" class="nav-link is-active">Accueil</a>
+    <a href="#slide-2" class="nav-link">À propos</a>
+    <a href="#slide-3" class="nav-link">Services</a>
+    <a href="#slide-4" class="nav-link">Résultats</a>
+  </nav>
+  <div class="header-actions">
+    <span class="header-counter" aria-hidden="true"><span id="brand-chapter">01</span><span class="counter-sep"></span>05</span>
+    <a href="#contact" class="contact-btn">Contact <span class="btn-arrow">&#8599;</span></a>
+  </div>
+</div>
+
+<div class="slide" id="slide-1">
+  <h2 class="slide-title">Le bon climat, <br>toute l'année</h2>
+  <div class="desc-row">
+    <p class="slide-desc col-1">Nous installons et entretenons climatisations et pompes à chaleur. Pour les maisons, les bureaux et les commerces qui veulent du confort sans exploser la facture.</p>
+  </div>
+</div>
+
+<div class="slide" id="slide-2">
+  <h2 class="slide-title">Des techniciens <br>certifiés</h2>
+  <p class="slide-desc">Une équipe de techniciens frigoristes certifiés RGE, formés sur les grandes marques du marché. Nous étudions votre logement, dimensionnons l'équipement au plus juste et posons tout nous-mêmes. Un seul interlocuteur, du devis à l'entretien.</p>
+</div>
+
+<div class="slide" id="slide-3">
+  <h2 class="slide-title">Ce que nous <br>prenons en charge</h2>
+  <ul class="benefits">
+    <li class="benefit"><span class="benefit-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"/><circle cx="10" cy="10" r="3.2"/></svg></span><p>Étude thermique et dimensionnement précis avant chaque devis.</p></li>
+    <li class="benefit"><span class="benefit-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13.4 3.6a4 4 0 0 0-5 5L3.6 13.4a1.7 1.7 0 0 0 2.4 2.4l4.8-4.8a4 4 0 0 0 5-5l-2.3 2.3-2-.5-.5-2 2.4-2.2z"/></svg></span><p>Pose propre et mise en service par nos propres techniciens.</p></li>
+    <li class="benefit"><span class="benefit-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"/><path d="M12.8 7.2a3.6 3.6 0 0 0-5 1.2c-.9 1.7-.3 3.8 1.4 4.7a3.6 3.6 0 0 0 3.6-.1M6.6 9.3h4.6M6.6 11h4"/></svg></span><p>Montage des dossiers d'aides pour réduire votre reste à charge.</p></li>
+    <li class="benefit"><span class="benefit-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4c0 7-4 11-9 11H4c0-7 4-11 9-11h3z"/><path d="M4 16c3-4.5 6-6.8 9.5-8" opacity=".55"/></svg></span><p>Entretien annuel pour garder un rendement maximal et durable.</p></li>
+  </ul>
+</div>
+
+<div class="slide" id="slide-4">
+  <h2 class="slide-title">Des résultats <br>bien concrets</h2>
+  <p class="slide-desc">Moyennes constatées sur nos chantiers des douze derniers mois.</p>
+  <dl class="figures">
+    <div class="figure"><dt><span class="figure-value" data-count="40" data-decimals="0">40</span> %</dt><dd>d'économies<br>sur le chauffage</dd></div>
+    <div class="figure"><dt><span class="figure-value" data-count="48" data-decimals="0">48</span> h</dt><dd>de délai moyen<br>d'intervention</dd></div>
+    <div class="figure"><dt><span class="figure-value" data-count="4.9" data-decimals="1">4.9</span>/5</dt><dd>de satisfaction<br>client moyenne</dd></div>
+  </dl>
+</div>
+</div>
+
+<div class="scroll-stage" aria-hidden="true"></div>
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="contact-inner">
+    <div class="contact-intro">
+      <p class="contact-eyebrow"><span class="eyebrow-dot"></span>Contact / 05</p>
+      <h2 class="contact-title" id="contact-title"><span class="line"><span class="line-inner">Parlons de</span></span><span class="line muted"><span class="line-inner">votre confort.</span></span></h2>
+      <p class="contact-lead">Une installation, un remplacement, un entretien ?<br>Écrivez-nous.</p>
+      <a class="contact-mail" href="mailto:contact@climate.fr">contact@climate.fr <span class="arrow">&#8599;</span></a>
+    </div>
+    <form class="contact-card" id="contact-form" data-email="contact@climate.fr">
+      <div class="card-head"><span>Votre message</span><span class="arrow">&#8599;</span></div>
+      <div class="field-grid">
+        <label class="field"><span class="field-label">Votre nom <em>*</em></span><input type="text" name="name" placeholder="Nom et prénom" autocomplete="name" required></label>
+        <label class="field"><span class="field-label">Votre e-mail <em>*</em></span><input type="email" name="email" placeholder="vous@entreprise.com" autocomplete="email" required></label>
+        <label class="field field-wide"><span class="field-label">Entreprise <small>optionnel</small></span><input type="text" name="company" placeholder="Nom de l'entreprise" autocomplete="organization"></label>
+        <label class="field field-wide"><span class="field-label">Votre projet <em>*</em></span><textarea name="project" rows="4" placeholder="Ce que vous aimeriez faire…" required></textarea></label>
+      </div>
+      <div class="card-foot">
+        <p class="card-note">Votre messagerie s'ouvrira<br>avec le message prêt à envoyer.</p>
+        <button type="submit" class="pill-btn"><span class="btn-label">Préparer mon e-mail</span> <span class="arrow">&#8599;</span></button>
+      </div>
+    </form>
+  </div>
+  <footer class="contact-footer">
+    <span>&copy; 2026 &mdash; Climate</span>
+    <span class="footer-spec">Three.js · WebGL 2 · 100 % temps réel</span>
+    <a href="#slide-1" class="footer-top">Haut de page <span aria-hidden="true">&uarr;</span></a>
+  </footer>
+</section>
+<div class="grid-horizontal-line"></div>
+<div class="header-progress" aria-hidden="true"><span id="header-progress-fill"></span></div>
+<div class="story-progress" aria-hidden="true">
+  <div class="story-dashes">
+    <div class="story-dash"><div class="story-dash-fill" id="dash-fill-1"></div></div>
+    <div class="story-dash"><div class="story-dash-fill" id="dash-fill-2"></div></div>
+    <div class="story-dash"><div class="story-dash-fill" id="dash-fill-3"></div></div>
+    <div class="story-dash"><div class="story-dash-fill" id="dash-fill-4"></div></div>
+  </div>
+</div>
+<canvas id="webgl"></canvas>
+<script type="module" src="./js/app.js?v=20261025"></script>
+</body>
+</html>
